@@ -1,0 +1,383 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 50%, #ff69b4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            margin: 40px 0 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #fff;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gift-container {
+            perspective: 1000px;
+            margin: 50px auto;
+            width: fit-content;
+        }
+
+        .gift-box {
+            width: clamp(200px, 40vw, 300px);
+            height: clamp(200px, 40vw, 300px);
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05) rotateY(5deg);
+        }
+
+        .box-base {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(145deg, #ff1493, #ff69b4);
+            position: absolute;
+            bottom: 0;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.4);
+        }
+
+        .box-lid {
+            width: 105%;
+            height: 35%;
+            background: linear-gradient(145deg, #ff69b4, #ff1493);
+            position: absolute;
+            top: 0;
+            left: -2.5%;
+            border-radius: 10px 10px 5px 5px;
+            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.3);
+            transform-origin: center bottom;
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+
+        .gift-box.shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .gift-box.opened .box-lid {
+            transform: rotateX(-120deg) translateY(-50px) translateZ(50px);
+            opacity: 0.3;
+        }
+
+        .box-lid-front,
+        .box-lid-back,
+        .box-lid-left,
+        .box-lid-right {
+            position: absolute;
+            background: linear-gradient(145deg, #ff1493, #ff69b4);
+        }
+
+        .box-lid-front {
+            width: 100%;
+            height: 30px;
+            bottom: -30px;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .flap {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(145deg, #ff69b4, #ff1493);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: center;
+            border-radius: 10px 10px 5px 5px;
+            box-shadow: 0 5px 20px rgba(255, 20, 147, 0.3);
+        }
+
+        .flap-left {
+            left: 0;
+            transform-origin: left center;
+        }
+
+        .flap-right {
+            right: 0;
+            transform-origin: right center;
+        }
+
+        .gift-box.opened .flap-left {
+            transform: rotateY(-150deg) translateX(-20px);
+        }
+
+        .gift-box.opened .flap-right {
+            transform: rotateY(150deg) translateX(20px);
+        }
+
+        .ribbon-v {
+            transition: all 0.8s ease;
+        }
+
+        .ribbon-h {
+            transition: all 0.8s ease;
+        }
+
+        .gift-box.opened .ribbon-v,
+        .gift-box.opened .ribbon-h {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .bow {
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .gift-box.opened .bow {
+            transform: translateX(-50%) translateY(-200px) rotate(360deg) scale(0.3);
+            opacity: 0;
+        }
+
+        .ribbon-v {
+            width: 20%;
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
+            position: absolute;
+            left: 40%;
+            top: 0;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .ribbon-h {
+            width: 100%;
+            height: 15%;
+            background: linear-gradient(180deg, #ffd700, #ffed4e, #ffd700);
+            position: absolute;
+            top: 25%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .bow {
+            width: 80px;
+            height: 80px;
+            background: #ffd700;
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .bow::before,
+        .bow::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: #ffd700;
+            position: absolute;
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .bow::before {
+            left: -40px;
+        }
+
+        .bow::after {
+            right: -40px;
+        }
+
+        .instruction {
+            margin-top: 30px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Flying Hearts */
+        .heart {
+            position: fixed;
+            font-size: 40px;
+            color: #ff1493;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flyHeart 3s ease-out forwards;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
+        }
+
+        @keyframes flyHeart {
+            0% {
+                transform: translateY(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Message Popup */
+        .message-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #fff 0%, #ffb6c1 100%);
+            padding: clamp(30px, 5vw, 50px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.5);
+            z-index: 10000;
+            max-width: 90%;
+            width: 500px;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .message-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .message-popup h2 {
+            color: #ff1493;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+        }
+
+        .message-popup p {
+            color: #666;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff1493;
+            pointer-events: none;
+            z-index: 9998;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .gift-box {
+                margin-top: 20px;
+            }
+
+            .bow {
+                width: 60px;
+                height: 60px;
+            }
+
+            .bow::before,
+            .bow::after {
+                width: 45px;
+                height: 45px;
+            }
+
+            .message-popup {
+                padding: 30px 20px;
+            }
+        }
